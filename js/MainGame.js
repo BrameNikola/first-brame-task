@@ -63,28 +63,7 @@ export default class MainGame extends Phaser.Scene {
           ) {
             this.score++;
             this.scoreText.setText("score: " + this.score);
-            this.gameItems.gameItemsOnScreen[0].setPosition(555, 555);
-            this.gameItems.gameItemsOnScreen[0] =
-              this.gameItems.gameItemsOnScreen[1];
-            while (true) {
-              this.gameItems.gameItemsOnScreen[1] = this.gameItems
-                .getChildren()
-                .at(
-                  Phaser.Math.Between(
-                    0,
-                    this.gameItems.getChildren().length - 1
-                  )
-                );
-              if (
-                this.gameItems.gameItemsOnScreen[0].value !==
-                this.gameItems.gameItemsOnScreen[1].value
-              ) {
-                break;
-              }
-            }
-
-            this.gameItems.gameItemsOnScreen[0].setPosition(200, 220);
-            this.gameItems.gameItemsOnScreen[1].setPosition(600, 220);
+            this.gameItems.generateItemsOnScreen();
           } else {
             this.scoreText.setText("");
             this.promptText.setText("");

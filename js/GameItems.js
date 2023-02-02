@@ -9,12 +9,9 @@ export default class GameItems extends Phaser.Physics.Arcade.Group {
   }
 
   initiate() {
-    this.test = "20din-paper";
-    console.log(parseInt(this.test.match(/\d+/)[0]));
-
     this.addMultiple([
-      new GameItem(this.scene, 200, 220, "1din"),
-      new GameItem(this.scene, 600, 220, "2din"),
+      new GameItem(this.scene, 700, 700, "1din"),
+      new GameItem(this.scene, 700, 700, "2din"),
       new GameItem(this.scene, 700, 700, "5din"),
       new GameItem(this.scene, 700, 700, "10din"),
       new GameItem(this.scene, 700, 700, "20din"),
@@ -25,13 +22,31 @@ export default class GameItems extends Phaser.Physics.Arcade.Group {
       new GameItem(this.scene, 700, 700, "500din-paper"),
     ]);
 
-    console.log(this.getChildren().length);
     for (let i = 0; i < this.getChildren().length; i++) {
       this.getChildren()[i].initiate();
-      console.log(this.getChildren()[i].value);
     }
 
-    this.gameItemsOnScreen[0] = this.getChildren()[0];
-    this.gameItemsOnScreen[1] = this.getChildren()[1];
+    this.generateItemsOnScreen();
+  }
+
+  generateItemsOnScreen() {
+    if (!this.gameItemsOnScreen[0]) {
+      this.gameItemsOnScreen[0] = this.getChildren().at(
+        Phaser.Math.Between(0, this.getChildren().length - 1)
+      );
+    } else {
+      this.gameItemsOnScreen[0].setPosition(555, 555);
+      this.gameItemsOnScreen[0] = this.gameItemsOnScreen[1];
+    }
+    while (true) {
+      this.gameItemsOnScreen[1] = this.getChildren().at(
+        Phaser.Math.Between(0, this.getChildren().length - 1)
+      );
+      if (this.gameItemsOnScreen[0].value !== this.gameItemsOnScreen[1].value) {
+        break;
+      }
+    }
+    this.gameItemsOnScreen[0].setPosition(200, 220);
+    this.gameItemsOnScreen[1].setPosition(600, 220);
   }
 }
