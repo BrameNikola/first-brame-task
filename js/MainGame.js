@@ -58,10 +58,8 @@ export default class MainGame extends Phaser.Scene {
           gameObject.clearTint();
           gameObject.setScale(0.3);
           if (
-            gameObject.getData("value") >
-              this.gameItems.gameItemsOnScreen[0].getData("value") ||
-            gameObject.getData("value") >
-              this.gameItems.gameItemsOnScreen[1].getData("value")
+            gameObject.value > this.gameItems.gameItemsOnScreen[0].value ||
+            gameObject.value > this.gameItems.gameItemsOnScreen[1].value
           ) {
             this.score++;
             this.scoreText.setText("score: " + this.score);
@@ -69,12 +67,17 @@ export default class MainGame extends Phaser.Scene {
             this.gameItems.gameItemsOnScreen[0] =
               this.gameItems.gameItemsOnScreen[1];
             while (true) {
-              this.gameItems.gameItemsOnScreen[1] = this.gameItems.items.at(
-                Phaser.Math.Between(0, this.gameItems.items.length - 1)
-              );
+              this.gameItems.gameItemsOnScreen[1] = this.gameItems
+                .getChildren()
+                .at(
+                  Phaser.Math.Between(
+                    0,
+                    this.gameItems.getChildren().length - 1
+                  )
+                );
               if (
-                this.gameItems.gameItemsOnScreen[0].getData("value") !==
-                this.gameItems.gameItemsOnScreen[1].getData("value")
+                this.gameItems.gameItemsOnScreen[0].value !==
+                this.gameItems.gameItemsOnScreen[1].value
               ) {
                 break;
               }

@@ -1,3 +1,5 @@
+import GameItem from "./GameItem.js";
+
 export default class GameItems extends Phaser.Physics.Arcade.Group {
   constructor(world, scene) {
     super(world, scene);
@@ -7,79 +9,29 @@ export default class GameItems extends Phaser.Physics.Arcade.Group {
   }
 
   initiate() {
-    // this.gameItemsGroup = this.physics.add.group();
-    this.gameItemsOnScreen.push(
-      this.create(200, 220, "1din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 1 })
-    );
-    this.gameItemsOnScreen.push(
-      this.create(600, 220, "5din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 5 })
-    );
-    this.items.push(
-      this.create(500, 500, "2din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 2 })
-    );
-    this.items.push(
-      this.create(500, 500, "10din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 10 })
-    );
-    this.items.push(
-      this.create(500, 500, "20din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 20 })
-    );
+    this.test = "20din-paper";
+    console.log(parseInt(this.test.match(/\d+/)[0]));
 
-    this.items.push(
-      this.create(555, 555, "1din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 1 })
-    );
-    this.items.push(
-      this.create(555, 555, "5din")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 5 })
-    );
-    this.items.push(
-      this.create(555, 555, "10din-paper")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 10 })
-    );
-    this.items.push(
-      this.create(555, 555, "20din-paper")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 20 })
-    );
-    this.items.push(
-      this.create(555, 555, "100din-paper")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 100 })
-    );
-    this.items.push(
-      this.create(555, 555, "200din-paper")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 200 })
-    );
-    this.items.push(
-      this.create(555, 555, "500din-paper")
-        .setScale(0.3)
-        .refreshBody()
-        .setData({ value: 500 })
-    );
+    this.addMultiple([
+      new GameItem(this.scene, 200, 220, "1din"),
+      new GameItem(this.scene, 600, 220, "2din"),
+      new GameItem(this.scene, 700, 700, "5din"),
+      new GameItem(this.scene, 700, 700, "10din"),
+      new GameItem(this.scene, 700, 700, "20din"),
+      new GameItem(this.scene, 700, 700, "10din-paper"),
+      new GameItem(this.scene, 700, 700, "20din-paper"),
+      new GameItem(this.scene, 700, 700, "100din-paper"),
+      new GameItem(this.scene, 700, 700, "200din-paper"),
+      new GameItem(this.scene, 700, 700, "500din-paper"),
+    ]);
+
+    console.log(this.getChildren().length);
+    for (let i = 0; i < this.getChildren().length; i++) {
+      this.getChildren()[i].initiate();
+      console.log(this.getChildren()[i].value);
+    }
+
+    this.gameItemsOnScreen[0] = this.getChildren()[0];
+    this.gameItemsOnScreen[1] = this.getChildren()[1];
   }
 }
